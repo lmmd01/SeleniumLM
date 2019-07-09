@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="30272" started-at="2019-07-09T20:05:13Z" finished-at="2019-07-09T20:05:44Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="30272" started-at="2019-07-09T20:05:13Z" finished-at="2019-07-09T20:05:44Z">
+      <class name="test.TestCompraAmazon">
+        <test-method status="PASS" signature="setup()[pri:0, instance:test.TestCompraAmazon@675d3402]" name="setup" is-config="true" duration-ms="7509" started-at="2019-07-09T20:05:13Z" finished-at="2019-07-09T20:05:21Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="testMail()[pri:0, instance:test.TestCompraAmazon@675d3402]" name="testMail" duration-ms="22721" started-at="2019-07-09T20:05:21Z" finished-at="2019-07-09T20:05:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testMail -->
+      </class> <!-- test.TestCompraAmazon -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

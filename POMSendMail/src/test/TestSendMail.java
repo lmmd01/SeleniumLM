@@ -35,11 +35,11 @@ public class TestSendMail {
 
 		// Login to Hotmail
 
-		hotmail.loginToHotmail("black_panther_xaa@hotmail.com", "fenixlmmd");
+		hotmail.loginToHotmail("email", "pass");
 		
 		// Send a mail to another account
 		
-		hotmail.sendMail("mike26pogo@gmail.com", "Ciao", "Come stai?");
+		hotmail.sendMail("toEmail", "Ciao", "Come stai?");
 		
 		// Logout from Hotmail
 		
@@ -51,7 +51,7 @@ public class TestSendMail {
 
 		// Login to Gmail
 
-		gmail.loginToGmail("mike26pogo", "futbol01");
+		gmail.loginToGmail("email", "pass");
 		
 		// Buscar mensaje 
 
