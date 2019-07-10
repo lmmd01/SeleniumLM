@@ -1,18 +1,21 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class Login {
 
 	WebDriver driver;
 
-	By signIn = By.xpath("//SPAN[@class='nav-line-1'][text()='Hola, Identifícate']");
+	By signIn = By.xpath("//A[@id='nav-link-accountList']//child::span[text()='Hola, Identifícate']");
 	By userMail = By.id("ap_email");
 	By passwordMail = By.id("ap_password");
 	By submit = By.id("signInSubmit");
 	By barraBusqueda = By.id("twotabsearchtextbox");
 	By botonBuscar = By.xpath("(//INPUT[@type='submit'])[1]");
+	
+	boolean good,sesion,encontrado = false;
 
 	// Constructor
 	public Login(WebDriver driver) {
@@ -38,19 +41,24 @@ public class Login {
 	public void clickElement(By element) {
 		driver.findElement(element).click();
 	}
-
-	// Thread sleep
-	public void waitTime(int time) {
+	
+	// Method buscar un elemento para activar flags
+	public boolean buscarElemento(String xpath) {
+		
 		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			System.out.println("Error en thread sleep");
+			if(driver.findElement(By.xpath(xpath)).isEnabled()) {
+				encontrado = true;
+			}
+		} catch (NoSuchElementException ex) {
+			System.out.println("No se encuentra un elemento");
 		}
+		
+		return encontrado;
 	}
 
-
 	// Method login
-	public void loginToAmazon(String mail, String password) {
+	public boolean loginToAmazon(String mail, String password) {
+		
 		// Click Ingresar
 		this.clickElement(signIn);
 
@@ -62,19 +70,19 @@ public class Login {
 
 		// Click Login button
 		this.clickElement(submit);
+		
+		return sesion = buscarElemento("//A[@id='nav-item-signout']");
 	}
+	
 
 	// Method buscarArticulo
 	public void buscarArticulo(String item) {
-
+		
 		// Fill busqueda
 		this.setBusqueda(item);
 
 		// Click Login button
 		this.clickElement(botonBuscar);
-
-		// Wait time
-		//this.waitTime(2000);
 
 	}
 

@@ -7,7 +7,6 @@ public class Dashboard {
 
 	WebDriver driver;
 
-	//By articulo = By.xpath("//DIV[@data-index='0']");
 	By articulo = By.xpath("//IMG[@data-image-index='3']");
 	By agregarCarrito = By.xpath("//INPUT[@id='add-to-cart-button']");
 	By botonCarrito = By.id("a-autoid-0-announce");
@@ -18,6 +17,11 @@ public class Dashboard {
 	// Constructor
 	public Dashboard(WebDriver driver) {
 		this.driver = driver;
+	}
+
+	// Method click on element
+	public void clickElement(By element) {
+		driver.findElement(element).click();
 	}
 
 	// Method agregarCarrito
@@ -47,17 +51,6 @@ public class Dashboard {
 		this.clickElement(botonContinuarEnvio);
 
 	}
-	// Method click on element
-	public void clickElement(By element) {
-		driver.findElement(element).click();
-	}
 
-	// Thread sleep
-	public void waitTime(int time) {
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			System.out.println("Error en thread sleep");
-		}
-	}
+
 }

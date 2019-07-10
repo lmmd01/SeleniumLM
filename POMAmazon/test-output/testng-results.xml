@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="30272" started-at="2019-07-09T20:05:13Z" finished-at="2019-07-09T20:05:44Z">
+  <suite name="Default suite" duration-ms="28808" started-at="2019-07-10T15:15:45Z" finished-at="2019-07-10T15:16:14Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="30272" started-at="2019-07-09T20:05:13Z" finished-at="2019-07-09T20:05:44Z">
+    <test name="Default test" duration-ms="28808" started-at="2019-07-10T15:15:45Z" finished-at="2019-07-10T15:16:14Z">
       <class name="test.TestCompraAmazon">
-        <test-method status="PASS" signature="setup()[pri:0, instance:test.TestCompraAmazon@675d3402]" name="setup" is-config="true" duration-ms="7509" started-at="2019-07-09T20:05:13Z" finished-at="2019-07-09T20:05:21Z">
+        <test-method status="PASS" signature="setup()[pri:0, instance:test.TestCompraAmazon@675d3402]" name="setup" is-config="true" duration-ms="11853" started-at="2019-07-10T15:15:45Z" finished-at="2019-07-10T15:15:57Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="testMail()[pri:0, instance:test.TestCompraAmazon@675d3402]" name="testMail" duration-ms="22721" started-at="2019-07-09T20:05:21Z" finished-at="2019-07-09T20:05:44Z">
+        <test-method status="PASS" signature="testMail()[pri:0, instance:test.TestCompraAmazon@675d3402]" name="testMail" duration-ms="16915" started-at="2019-07-10T15:15:57Z" finished-at="2019-07-10T15:16:14Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testMail -->
