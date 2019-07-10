@@ -3,9 +3,12 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import utilidades.Generic;
+
 public class Dashboard {
 
 	WebDriver driver;
+	Generic util;
 
 	By articulo = By.xpath("//IMG[@data-image-index='3']");
 	By agregarCarrito = By.xpath("//INPUT[@id='add-to-cart-button']");
@@ -17,24 +20,20 @@ public class Dashboard {
 	// Constructor
 	public Dashboard(WebDriver driver) {
 		this.driver = driver;
-	}
-
-	// Method click on element
-	public void clickElement(By element) {
-		driver.findElement(element).click();
+		util = new Generic(driver);
 	}
 
 	// Method agregarCarrito
 	public void agregarCarrito() {
 
 		// Click articulo 0
-		this.clickElement(this.articulo);
+		util.clickElement(this.articulo);
 
 		// Click agregar al carrito
-		this.clickElement(this.agregarCarrito);
+		util.clickElement(this.agregarCarrito);
 
 		// Click boton del carrito
-		this.clickElement(this.botonCarrito);
+		util.clickElement(this.botonCarrito);
 
 	}
 
@@ -42,13 +41,13 @@ public class Dashboard {
 	public void checkout() {
 
 		// Click boton checkout
-		this.clickElement(this.botonCheckout);
+		util.clickElement(this.botonCheckout);
 
 		// Click boton de direccion
-		this.clickElement(botonDireccion);
+		util.clickElement(botonDireccion);
 
 		// Click continuar envio
-		this.clickElement(botonContinuarEnvio);
+		util.clickElement(botonContinuarEnvio);
 
 	}
 

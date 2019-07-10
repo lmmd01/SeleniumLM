@@ -28,8 +28,7 @@ public class TestCompraAmazon {
 		driver = new ChromeDriver();
 
 		// Open the webpage
-		driver.get(
-				"https://www.amazon.com.mx/");
+		driver.get("https://www.amazon.com.mx/");
 	}
 
 
@@ -43,7 +42,7 @@ public class TestCompraAmazon {
 		dash = new Dashboard(driver);
 
 		// Login to Amazon
-		//sesion = login.loginToAmazon("email","pass");
+		sesion = login.loginToAmazon("email","pass");
 
 		// Buscar articulo
 		login.buscarArticulo("teclado logitech k780");
@@ -56,7 +55,7 @@ public class TestCompraAmazon {
 			dash.checkout();
 		}
 		
-		//Assert.assertEquals("true", "true");
+		Assert.assertEquals("true", "true");
 
 		} catch(Exception ex) {
 			System.out.println("Hay error");

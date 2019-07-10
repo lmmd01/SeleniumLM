@@ -1,12 +1,14 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+
+import utilidades.Generic;
 
 public class Login {
 
 	WebDriver driver;
+	Generic util;
 
 	By signIn = By.xpath("//A[@id='nav-link-accountList']//child::span[text()='Hola, Identifícate']");
 	By userMail = By.id("ap_email");
@@ -16,12 +18,14 @@ public class Login {
 	By botonBuscar = By.xpath("(//INPUT[@type='submit'])[1]");
 	
 	boolean good,sesion,encontrado = false;
+	
 
 	// Constructor
 	public Login(WebDriver driver) {
 		this.driver = driver;
+		util = new Generic(driver);
 	}
-
+	
 	// Set user name 
 	public void setUserName(String strUser) {
 		driver.findElement(userMail).sendKeys(strUser);
@@ -37,31 +41,13 @@ public class Login {
 		driver.findElement(barraBusqueda).sendKeys(strBusqueda);
 	}
 
-	// Method click on element
-	public void clickElement(By element) {
-		driver.findElement(element).click();
-	}
-	
-	// Method buscar un elemento para activar flags
-	public boolean buscarElemento(String xpath) {
-		
-		try {
-			if(driver.findElement(By.xpath(xpath)).isEnabled()) {
-				encontrado = true;
-			}
-		} catch (NoSuchElementException ex) {
-			System.out.println("No se encuentra un elemento");
-		}
-		
-		return encontrado;
-	}
-
 	// Method login
 	public boolean loginToAmazon(String mail, String password) {
 		
 		// Click Ingresar
-		this.clickElement(signIn);
-
+		//this.clickElement(signIn);
+		util.clickElement(signIn);
+		
 		// Fill user name
 		this.setUserName(mail);
 
@@ -69,9 +55,9 @@ public class Login {
 		this.setPassword(password);
 
 		// Click Login button
-		this.clickElement(submit);
+		util.clickElement(submit);
 		
-		return sesion = buscarElemento("//A[@id='nav-item-signout']");
+		return sesion = util.buscarElemento("//A[@id='nav-item-signout']");
 	}
 	
 
@@ -82,7 +68,7 @@ public class Login {
 		this.setBusqueda(item);
 
 		// Click Login button
-		this.clickElement(botonBuscar);
+		util.clickElement(botonBuscar);
 
 	}
 
