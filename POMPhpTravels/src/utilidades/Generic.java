@@ -14,24 +14,25 @@ public class Generic {
 		this.driver = driver;
 	}
 
-
 	// Method click on element
 	public void clickElement(By element) {
-		driver.findElement(element).click();
+
+		try {
+			driver.findElement(element).click();
+		} catch (NoSuchElementException ex) {
+			System.out.println("No se encuentra el elemento de :" + element);
+		}
 	}
 
+	// Method buscar un elemento
+	public void buscarElemento(By element) {
 
-	// Method buscar un elemento para activar flags
-	public boolean buscarElemento(String xpath) {
-	
 		try {
-			if(driver.findElement(By.xpath(xpath)).isEnabled()) {
+			if (driver.findElement(element).isEnabled() && driver.findElement(element).isDisplayed()) {
 				encontrado = true;
 			}
 		} catch (NoSuchElementException ex) {
-			System.out.println("No se encuentra un elemento");
+			System.out.println("No se encuentra el elemento de :" + element);
 		}
-
-		return encontrado;
 	}
 }
