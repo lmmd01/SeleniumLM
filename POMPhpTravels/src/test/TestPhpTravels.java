@@ -7,12 +7,14 @@ import org.testng.annotations.Test;
 
 import pages.HomePage;
 import pages.Hotel;
+import pages.Login;
 
 public class TestPhpTravels {
 
 	WebDriver driver;
 	HomePage home;
 	Hotel hotel;
+	Login login;
 
 	@BeforeTest
 	public void setup() {
@@ -35,15 +37,19 @@ public class TestPhpTravels {
 		// Create HomePage object
 		home = new HomePage(driver);
 		hotel = new Hotel(driver);
-
+		login = new Login(driver);
+		
+		//login.ingresar();
+		
+		// /*
 		// Buscar articulo
 		String url = home.buscarHotel("Singapore","01/08/2019","15/08/2019","3","1");
-		
 		
 		// Verificar disponibilidad, amenities y checking
 		if(hotel.verificarDisponibilidadHotel(url) && hotel.verificarAmenities(url) && hotel.verificarChecking(url)) {
 			hotel.reservarHotel("https://www.phptravels.net/hotels/detail/singapore/rendezvous-hotels/01-08-2019/15-08-2019/3/1","ElRw","Axel","Trl", "axeltrl@gmail.com");
 		}
+		// */
 
 		// Verificar disponibilidad
 		//home.verificarDisponibilidadHotel(url);

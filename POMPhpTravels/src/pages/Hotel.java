@@ -3,7 +3,9 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -16,23 +18,23 @@ public class Hotel {
 	WebDriverWait wait;
 	JavascriptExecutor js;
 
-	By availableSection = By.xpath("//div[@class = 'panel-heading go-text-right panel-default ttu'][text()='Available Rooms']");
-	By hotelNotAvailable = By.xpath("//h4[@class = 'alert alert-info'][text()='No Results Found']");
+	By lblAvailableSection = By.xpath("//div[@class = 'panel-heading go-text-right panel-default ttu'][text()='Available Rooms']");
+	By lblHotelNotAvailable = By.xpath("//h4[@class = 'alert alert-info'][text()='No Results Found']");
 
-	By amenities = By.xpath("//p[@class = 'main-title go-right'][text()='Privacy Policy']");
-	By checkInformation = By.xpath("//p[@class = 'main-title  go-right'][text()='Check in']");
+	By lblAmenities = By.xpath("//p[@class = 'main-title go-right'][text()='Privacy Policy']");
+	By lblCheckingInfo = By.xpath("//p[@class = 'main-title  go-right'][text()='Check in']");
 
-	By checkBox = By.xpath("//h4[@class = 'RTL go-text-right mt0 list_title ttu']//child::a//child::b[text()='Junior Suites']//following::input//following::div[@class='control__indicator']");
-	By bookButton = By.xpath("//button[@type = 'submit'][contains(text(),'Book Now')]");
-	By coupon = By.xpath("//input[@placeholder = 'Coupon Code']");
-	By buttonCupon = By.xpath("//span[text() = 'Apply Coupon']");
-	By exitoCupon = By.xpath("//div[@class = 'alert alert-success']");
-	By panelPersonalInfo = By.xpath("//div[@class = 'panel-heading'][text() = 'Personal Details']");
-	By nameR = By.name("firstname");
-	By lastname = By.name("lastname");
-	By email = By.name("email");
-	By emailConfirm = By.name("confirmemail");
-	By buttonConfirmBooking = By.xpath("//button[@type = 'submit'][contains(text(),'CONFIRM THIS BOOKING')]");
+	By chkBoxReservarHotel = By.xpath("//h4[@class = 'RTL go-text-right mt0 list_title ttu']//child::a//child::b[text()='Junior Suites']//following::input//following::div[@class='control__indicator']");
+	By btnBookNow = By.xpath("//button[@type = 'submit'][contains(text(),'Book Now')]");
+	By txtCoupon = By.xpath("//input[@placeholder = 'Coupon Code']");
+	By btnCoupon = By.xpath("//span[text() = 'Apply Coupon']");
+	By lblValidCoupon = By.xpath("//div[@class = 'alert alert-success']");
+	By lblPersonalInfo = By.xpath("//div[@class = 'panel-heading'][text() = 'Personal Details']");
+	By txtNameBooking = By.name("firstname");
+	By txtLastnameBooking = By.name("lastname");
+	By txtEmailBooking = By.name("email");
+	By txtEmailConfirmBooking = By.name("confirmemail");
+	By btnConfirmBooking = By.xpath("//button[@type = 'submit'][contains(text(),'CONFIRM THIS BOOKING')]");
 	
 	
 
@@ -46,13 +48,16 @@ public class Hotel {
 
 	// Set coupon
 	public void setCoupon(String strCupon) {
-		driver.findElement(coupon).clear();
-		driver.findElement(coupon).sendKeys(strCupon);
-		driver.findElement(buttonCupon).click();
+		WebElement wetCoupon = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtCoupon));
+		WebElement webCoupon = wait.until(ExpectedConditions.visibilityOfElementLocated(this.btnCoupon));
+
+		wetCoupon.clear();
+		wetCoupon.sendKeys(strCupon);
+		webCoupon.click();
 
 		try {
-			wait.until(ExpectedConditions.visibilityOfElementLocated(exitoCupon));
-			if(driver.findElement(exitoCupon).isDisplayed()) {
+			wait.until(ExpectedConditions.visibilityOfElementLocated(lblValidCoupon));
+			if(driver.findElement(lblValidCoupon).isDisplayed()) {
 				System.out.println("Se ha aplicado el cupon");
 			}
 		} catch (NoSuchElementException ex) {
@@ -63,19 +68,23 @@ public class Hotel {
 	
 	// Set name
 		public void setNameR(String strNameR) {
-			util.clickElement(this.nameR);
-			driver.findElement(nameR).sendKeys(strNameR);
+			WebElement weNameBooking = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtNameBooking));
+			weNameBooking.click();
+			weNameBooking.sendKeys(strNameR);
 		}
 
 		// Set lastname
 		public void setLastname(String strLastname) {
-			driver.findElement(lastname).sendKeys(strLastname);
+			WebElement weLastnameBooking = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtLastnameBooking));
+			weLastnameBooking.sendKeys(strLastname);
 		}
 
 		// Set email
 		public void setEmail(String strEmail) {
-			driver.findElement(email).sendKeys(strEmail);
-			driver.findElement(emailConfirm).sendKeys(strEmail);
+			WebElement weMailBooking = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtEmailBooking));
+			WebElement weConfirmMailBooking = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtEmailConfirmBooking));
+			weMailBooking.sendKeys(strEmail);
+			weConfirmMailBooking.sendKeys(strEmail);
 		}
 
 
@@ -86,14 +95,17 @@ public class Hotel {
 		driver.get(url);
 
 		try {
-			// This will scroll down the page by 1000 pixel vertical
-			js.executeScript("window.scrollBy(0,1000)");
+			
+			WebElement weAvailableSection = wait.until(ExpectedConditions.visibilityOfElementLocated(this.lblAvailableSection));
+			
+			//This will scroll the page till the element is found		
+	        js.executeScript("arguments[0].scrollIntoView();", weAvailableSection);
+	        
+	        WebElement weHotelNotAvailable = wait.until(ExpectedConditions.visibilityOfElementLocated(this.lblHotelNotAvailable));
 
-			wait.until(ExpectedConditions.visibilityOfElementLocated(availableSection));
+	        weHotelNotAvailable.isDisplayed();
 
-			driver.findElement(hotelNotAvailable).isDisplayed();
-
-		} catch (NoSuchElementException ex) {
+		} catch (NoSuchElementException | TimeoutException ex) {
 			isAvailable = true;
 		} finally {
 			System.out.println("Hotel disponible ?: " + isAvailable);
@@ -110,8 +122,9 @@ public class Hotel {
 		driver.get(url);
 
 		try {
-
-			if (driver.findElement(amenities).isDisplayed()) {
+			WebElement weAmenities = wait.until(ExpectedConditions.visibilityOfElementLocated(this.lblAmenities));
+			
+			if (weAmenities.isDisplayed()) {
 				isAmenities = true;
 			}
 
@@ -130,8 +143,9 @@ public class Hotel {
 		driver.get(url);
 
 		try {
-
-			if (driver.findElement(checkInformation).isDisplayed()) {
+			WebElement weCheckingInfo = wait.until(ExpectedConditions.visibilityOfElementLocated(this.lblCheckingInfo));
+			
+			if (weCheckingInfo.isDisplayed()) {
 				isChecking = true;
 			}
 
@@ -146,19 +160,22 @@ public class Hotel {
 	// Reservar Hotel
 	public void reservarHotel(String url, String coupon, String name, String lastname, String email) {
 		
-
 		driver.get(url);
 
-		// This will scroll down the page by 1000 pixel vertical
-		js.executeScript("window.scrollBy(0,1000)");
-
-		util.clickElement(checkBox);
-
-		js.executeScript("window.scrollBy(0,1000)");
+		WebElement weReservarHotel = wait.until(ExpectedConditions.visibilityOfElementLocated(this.chkBoxReservarHotel));
 		
-		util.clickElement(bookButton);
+		//This will scroll the page till the element is found		
+        js.executeScript("arguments[0].scrollIntoView();", weReservarHotel);
+        
+        weReservarHotel.click();
+        
+        WebElement weBookNow = wait.until(ExpectedConditions.visibilityOfElementLocated(this.btnBookNow));
+			
+        js.executeScript("arguments[0].scrollIntoView();", weBookNow);
 		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(panelPersonalInfo));
+        weBookNow.click();
+		
+		wait.until(ExpectedConditions.visibilityOfElementLocated(lblPersonalInfo));
 
 		this.setNameR(name);
 		
@@ -166,14 +183,15 @@ public class Hotel {
 		
 		this.setEmail(email);
 		
+		WebElement weCupon = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtCoupon));
 		
-		js.executeScript("window.scrollBy(0,1000)");
+		js.executeScript("arguments[0].scrollIntoView();", weCupon);
 		
 		if(coupon != "") {
 			this.setCoupon(coupon);
 		}
 
-		util.clickElement(buttonConfirmBooking);
+		util.clickElement(btnConfirmBooking);
 
 	}
 

@@ -20,7 +20,7 @@ public class Generic {
 		try {
 			driver.findElement(element).click();
 		} catch (NoSuchElementException ex) {
-			System.out.println("No se encuentra el elemento de :" + element);
+			System.out.println("No se encuentra el elemento de : " + element);
 		}
 	}
 
