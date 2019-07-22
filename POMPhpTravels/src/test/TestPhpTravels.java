@@ -1,10 +1,13 @@
 package test;
 
+import java.io.IOException;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import pages.ExcelData;
 import pages.HomePage;
 import pages.Hotel;
 import pages.Login;
@@ -15,6 +18,7 @@ public class TestPhpTravels {
 	HomePage home;
 	Hotel hotel;
 	Login login;
+	ExcelData excel;
 
 	@BeforeTest
 	public void setup() {
@@ -28,7 +32,7 @@ public class TestPhpTravels {
 		// Open the webpage
 		driver.get("https://www.phptravels.net/");
 
-		driver.manage().window().maximize();
+		//driver.manage().window().maximize();
 	}
 
 	@Test
@@ -38,10 +42,18 @@ public class TestPhpTravels {
 		home = new HomePage(driver);
 		hotel = new Hotel(driver);
 		login = new Login(driver);
+		excel = new ExcelData();
 		
-		//login.ingresar();
+		try {
+			String testE = excel.getData(0);
+			//System.out.println("El valor del excel es: " + testE);
+		} catch (IOException ex) {
+			System.out.println(ex);
+		}
 		
-		// /*
+		//login.ingresar("lmmd@lmmd.com","lmmd");
+		
+		 /*
 		// Buscar articulo
 		String url = home.buscarHotel("Singapore","01/08/2019","15/08/2019","3","1");
 		

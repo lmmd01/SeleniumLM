@@ -10,5 +10,18 @@
 	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/selenium-java-3.141.59/libs/guava-25.0-jre.jar"/>
 	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/selenium-java-3.141.59/libs/okhttp-3.11.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/selenium-java-3.141.59/libs/okio-1.14.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/poi-3.9/poi-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/poi-3.9/poi-examples-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/poi-3.9/poi-excelant-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/poi-3.9/poi-ooxml-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/poi-3.9/poi-ooxml-schemas-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/poi-3.9/poi-scratchpad-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/poi-3.9/ooxml-lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/poi-3.9/ooxml-lib/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/poi-3.9/ooxml-lib/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/poi-3.9/lib/commons-codec-1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/poi-3.9/lib/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/poi-3.9/lib/junit-3.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PCDUARTE01/Desktop/TATA/ECLIPSE/poi-3.9/lib/log4j-1.2.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

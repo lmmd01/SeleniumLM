@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="84140" started-at="2019-07-19T14:24:58Z" finished-at="2019-07-19T14:26:22Z">
+  <suite name="Default suite" duration-ms="15383" started-at="2019-07-22T17:41:00Z" finished-at="2019-07-22T17:41:16Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="84140" started-at="2019-07-19T14:24:58Z" finished-at="2019-07-19T14:26:22Z">
+    <test name="Default test" duration-ms="15383" started-at="2019-07-22T17:41:00Z" finished-at="2019-07-22T17:41:16Z">
       <class name="test.TestPhpTravels">
-        <test-method status="PASS" signature="setup()[pri:0, instance:test.TestPhpTravels@675d3402]" name="setup" is-config="true" duration-ms="14557" started-at="2019-07-19T14:24:58Z" finished-at="2019-07-19T14:25:13Z">
+        <test-method status="PASS" signature="setup()[pri:0, instance:test.TestPhpTravels@224edc67]" name="setup" is-config="true" duration-ms="13958" started-at="2019-07-22T17:41:00Z" finished-at="2019-07-22T17:41:14Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="testMail()[pri:0, instance:test.TestPhpTravels@675d3402]" name="testMail" duration-ms="69533" started-at="2019-07-19T14:25:13Z" finished-at="2019-07-19T14:26:22Z">
+        <test-method status="PASS" signature="testMail()[pri:0, instance:test.TestPhpTravels@224edc67]" name="testMail" duration-ms="1368" started-at="2019-07-22T17:41:14Z" finished-at="2019-07-22T17:41:16Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testMail -->
