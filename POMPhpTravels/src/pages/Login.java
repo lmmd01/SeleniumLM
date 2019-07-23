@@ -3,7 +3,6 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utilidades.Generic;
@@ -14,11 +13,20 @@ public class Login {
 	Generic util;
 	WebDriverWait wait;
 	
+	// Locators
 	By btnMyAccount = By.xpath("//nav[@class = 'navbar navbar-default']//following::li[@id = 'li_myaccount']");
 	By btnLogin = By.xpath("//nav[@class = 'navbar navbar-default']//following::a[text()=' Login']");
 	By txtUsername = By.name("username");
 	By txtPassword = By.name("password");
 	By btnLoginSubmit = By.xpath("//button[text() = 'Login']");
+	
+	// WebElements
+	WebElement weMyAccount;
+	WebElement weLogin;
+	WebElement weUsername;
+	WebElement wePass;
+	WebElement weLoginSub;
+	
 
 	// Constructor
 	public Login(WebDriver driver) {
@@ -29,22 +37,20 @@ public class Login {
 	
 	
 	public void ingresar(String strMail, String strPass) {
-		//System.out.println("Displayed: " + driver.findElement(btnMyAccount).isDisplayed());
-		//System.out.println("Enabled: " + driver.findElement(btnMyAccount).isDisplayed());
 		util.clickElement(btnMyAccount);
 		util.clickElement(btnLogin);
 		
-		WebElement weMyAccount = wait.until(ExpectedConditions.visibilityOfElementLocated(this.btnMyAccount));
+		weMyAccount = util.createWebElement(this.btnMyAccount);
 		weMyAccount.click();
-		WebElement weLogin = wait.until(ExpectedConditions.visibilityOfElementLocated(this.btnLogin));
+		weLogin = util.createWebElement(this.btnLogin);
 		weLogin.click();
-		WebElement weUsername = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtUsername));
+		weUsername = util.createWebElement(this.txtUsername);
 		weUsername.clear();
 		weUsername.sendKeys(strMail);
-		WebElement wePass = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtPassword));
+		wePass = util.createWebElement(this.txtPassword);
 		wePass.clear();
 		wePass.sendKeys(strPass);
-		WebElement weLoginSub = wait.until(ExpectedConditions.visibilityOfElementLocated(this.btnLoginSubmit));
+		weLoginSub = util.createWebElement(this.btnLoginSubmit);
 		weLoginSub.click();
 		
 		

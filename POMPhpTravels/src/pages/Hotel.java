@@ -2,8 +2,6 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,12 +16,11 @@ public class Hotel {
 	WebDriverWait wait;
 	JavascriptExecutor js;
 
+	// Locators
 	By lblAvailableSection = By.xpath("//div[@class = 'panel-heading go-text-right panel-default ttu'][text()='Available Rooms']");
 	By lblHotelNotAvailable = By.xpath("//h4[@class = 'alert alert-info'][text()='No Results Found']");
-
 	By lblAmenities = By.xpath("//p[@class = 'main-title go-right'][text()='Privacy Policy']");
 	By lblCheckingInfo = By.xpath("//p[@class = 'main-title  go-right'][text()='Check in']");
-
 	By chkBoxReservarHotel = By.xpath("//h4[@class = 'RTL go-text-right mt0 list_title ttu']//child::a//child::b[text()='Junior Suites']//following::input//following::div[@class='control__indicator']");
 	By btnBookNow = By.xpath("//button[@type = 'submit'][contains(text(),'Book Now')]");
 	By txtCoupon = By.xpath("//input[@placeholder = 'Coupon Code']");
@@ -35,8 +32,21 @@ public class Hotel {
 	By txtEmailBooking = By.name("email");
 	By txtEmailConfirmBooking = By.name("confirmemail");
 	By btnConfirmBooking = By.xpath("//button[@type = 'submit'][contains(text(),'CONFIRM THIS BOOKING')]");
-	
-	
+
+	// WebElements
+	WebElement wetCoupon;
+	WebElement webCoupon;
+	WebElement weNameBooking;
+	WebElement weLastnameBooking;
+	WebElement weMailBooking;
+	WebElement weConfirmMailBooking;
+	WebElement weAvailableSection;
+	WebElement weHotelNotAvailable;
+	WebElement weAmenities;
+	WebElement weCheckingInfo;
+	WebElement weReservarHotel;
+	WebElement weBookNow;
+	WebElement weCupon;
 
 	// Constructor
 	public Hotel(WebDriver driver) {
@@ -48,8 +58,8 @@ public class Hotel {
 
 	// Set coupon
 	public void setCoupon(String strCupon) {
-		WebElement wetCoupon = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtCoupon));
-		WebElement webCoupon = wait.until(ExpectedConditions.visibilityOfElementLocated(this.btnCoupon));
+		wetCoupon = util.createWebElement(this.txtCoupon);
+		webCoupon = util.createWebElement(this.btnCoupon);
 
 		wetCoupon.clear();
 		wetCoupon.sendKeys(strCupon);
@@ -60,32 +70,33 @@ public class Hotel {
 			if(driver.findElement(lblValidCoupon).isDisplayed()) {
 				System.out.println("Se ha aplicado el cupon");
 			}
-		} catch (NoSuchElementException ex) {
+		} catch (Exception ex) {
 			System.out.println("No se ha aplicado el cupon");
+			System.out.println(ex.getMessage());
 		}
 
 	}
-	
+
 	// Set name
-		public void setNameR(String strNameR) {
-			WebElement weNameBooking = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtNameBooking));
-			weNameBooking.click();
-			weNameBooking.sendKeys(strNameR);
-		}
+	public void setNameR(String strNameR) {
+		weNameBooking = util.createWebElement(this.txtNameBooking);
+		weNameBooking.click();
+		weNameBooking.sendKeys(strNameR);
+	}
 
-		// Set lastname
-		public void setLastname(String strLastname) {
-			WebElement weLastnameBooking = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtLastnameBooking));
-			weLastnameBooking.sendKeys(strLastname);
-		}
+	// Set lastname
+	public void setLastname(String strLastname) {
+		weLastnameBooking = util.createWebElement(this.txtLastnameBooking);
+		weLastnameBooking.sendKeys(strLastname);
+	}
 
-		// Set email
-		public void setEmail(String strEmail) {
-			WebElement weMailBooking = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtEmailBooking));
-			WebElement weConfirmMailBooking = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtEmailConfirmBooking));
-			weMailBooking.sendKeys(strEmail);
-			weConfirmMailBooking.sendKeys(strEmail);
-		}
+	// Set email
+	public void setEmail(String strEmail) {
+		weMailBooking = util.createWebElement(this.txtEmailBooking);
+		weConfirmMailBooking = util.createWebElement(this.txtEmailConfirmBooking);
+		weMailBooking.sendKeys(strEmail);
+		weConfirmMailBooking.sendKeys(strEmail);
+	}
 
 
 	// Verificar Disponibilidad
@@ -95,18 +106,18 @@ public class Hotel {
 		driver.get(url);
 
 		try {
-			
-			WebElement weAvailableSection = wait.until(ExpectedConditions.visibilityOfElementLocated(this.lblAvailableSection));
-			
+			weAvailableSection = util.createWebElement(this.lblAvailableSection);
+
 			//This will scroll the page till the element is found		
-	        js.executeScript("arguments[0].scrollIntoView();", weAvailableSection);
-	        
-	        WebElement weHotelNotAvailable = wait.until(ExpectedConditions.visibilityOfElementLocated(this.lblHotelNotAvailable));
+			js.executeScript("arguments[0].scrollIntoView();", weAvailableSection);
 
-	        weHotelNotAvailable.isDisplayed();
+			weHotelNotAvailable = util.createWebElement(this.lblHotelNotAvailable);
 
-		} catch (NoSuchElementException | TimeoutException ex) {
+			weHotelNotAvailable.isDisplayed();
+
+		} catch (Exception ex) {
 			isAvailable = true;
+			System.out.println(ex.getMessage());
 		} finally {
 			System.out.println("Hotel disponible ?: " + isAvailable);
 		}
@@ -122,14 +133,15 @@ public class Hotel {
 		driver.get(url);
 
 		try {
-			WebElement weAmenities = wait.until(ExpectedConditions.visibilityOfElementLocated(this.lblAmenities));
-			
+			weAmenities = util.createWebElement(this.lblAmenities);
+
 			if (weAmenities.isDisplayed()) {
 				isAmenities = true;
 			}
 
-		} catch (NoSuchElementException ex) {
+		} catch (Exception ex) {
 			System.out.println("No hay amenities information");
+			System.out.println(ex.getMessage());
 		}
 
 		return isAmenities;
@@ -143,14 +155,15 @@ public class Hotel {
 		driver.get(url);
 
 		try {
-			WebElement weCheckingInfo = wait.until(ExpectedConditions.visibilityOfElementLocated(this.lblCheckingInfo));
-			
+			weCheckingInfo = util.createWebElement(this.lblCheckingInfo);
+
 			if (weCheckingInfo.isDisplayed()) {
 				isChecking = true;
 			}
 
-		} catch (NoSuchElementException ex) {
+		} catch (Exception ex) {
 			System.out.println("No hay checking information");
+			System.out.println(ex.getMessage());
 		}
 
 		return isChecking;
@@ -159,34 +172,34 @@ public class Hotel {
 
 	// Reservar Hotel
 	public void reservarHotel(String url, String coupon, String name, String lastname, String email) {
-		
+
 		driver.get(url);
 
-		WebElement weReservarHotel = wait.until(ExpectedConditions.visibilityOfElementLocated(this.chkBoxReservarHotel));
-		
+		weReservarHotel = util.createWebElement(this.chkBoxReservarHotel);
+
 		//This will scroll the page till the element is found		
-        js.executeScript("arguments[0].scrollIntoView();", weReservarHotel);
-        
-        weReservarHotel.click();
-        
-        WebElement weBookNow = wait.until(ExpectedConditions.visibilityOfElementLocated(this.btnBookNow));
-			
-        js.executeScript("arguments[0].scrollIntoView();", weBookNow);
-		
-        weBookNow.click();
-		
+		js.executeScript("arguments[0].scrollIntoView();", weReservarHotel);
+
+		weReservarHotel.click();
+
+		weBookNow = util.createWebElement(this.btnBookNow);
+
+		js.executeScript("arguments[0].scrollIntoView();", weBookNow);
+
+		weBookNow.click();
+
 		wait.until(ExpectedConditions.visibilityOfElementLocated(lblPersonalInfo));
 
 		this.setNameR(name);
-		
+
 		this.setLastname(lastname);
-		
+
 		this.setEmail(email);
-		
-		WebElement weCupon = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtCoupon));
-		
+
+		weCupon = util.createWebElement(this.txtCoupon);
+
 		js.executeScript("arguments[0].scrollIntoView();", weCupon);
-		
+
 		if(coupon != "") {
 			this.setCoupon(coupon);
 		}

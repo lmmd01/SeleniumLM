@@ -14,6 +14,7 @@ public class HomePage {
 	Generic util;
 	WebDriverWait wait;
 
+	// Locators
 	By tabHotels = By.xpath("//span[@class='hidden-xs'][contains(text(),'Hotels')]");
 	By txtNameClick = By.xpath("//div[@id='s2id_autogen3']//child::a//child::span");
 	By txtNameWrite = By.name("hotel_s2_text");
@@ -24,9 +25,19 @@ public class HomePage {
 	By txtAdults = By.xpath("//input[@id='adultInput']");
 	By txtChilds = By.xpath("//input[@id='childInput']");
 	By btnBuscar = By.xpath("//button[@type = 'submit'][@class = 'btn btn-lg btn-block btn-primary pfb0 loader']");
-	// By botonBuscar = By.name("fCustomHotelSearch");
 	By btnLogin = By.xpath("//li[@id='li_myaccount']//child::ul//child::li[1]//child::a");
 
+	//WebElements
+	WebElement weHotelClick;
+	WebElement weHotelWrite;
+	WebElement weCheckIn;
+	WebElement weCheckOut;
+	WebElement wePeople;
+	WebElement weAdults;
+	WebElement weChilds;
+	
+	
+	
 	// Constructor
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
@@ -36,30 +47,30 @@ public class HomePage {
 
 	// Set hotel name
 	public void setHotelName(String strHotel) {
-		WebElement weHotelClick = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtNameClick));
-		WebElement weHotelWrite = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtNameWrite));
+		weHotelClick = util.createWebElement(this.txtNameClick);
+		weHotelWrite = util.createWebElement(this.txtNameWrite);
 		weHotelClick.click();
 		weHotelWrite.sendKeys(strHotel);
 	}
 
 	// Set check in
 	public void setCheckIn(String strCin) {
-		WebElement weCheckIn = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtCheckIn));
+		weCheckIn = util.createWebElement(this.txtCheckIn);
 		weCheckIn.sendKeys(strCin);
 	}
 
 	// Set check out
 	public void setCheckOut(String strCou) {
-		WebElement weCheckOut = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtCheckOut));
+		weCheckOut = util.createWebElement(this.txtCheckOut);
 		weCheckOut.sendKeys(strCou);
 	}
 
 	// Set people
 	public void setPeople(String nAdul, String nChild) {
-		WebElement wePeople = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtPeople));
+		wePeople = util.createWebElement(this.txtPeople);
 		wePeople.click();
-		WebElement weAdults = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtAdults));
-		WebElement weChilds = wait.until(ExpectedConditions.visibilityOfElementLocated(this.txtChilds));
+		weAdults = util.createWebElement(this.txtAdults);
+		weChilds = util.createWebElement(this.txtChilds);
 		weAdults.clear();
 		weAdults.sendKeys(nAdul);
 		weChilds.clear();
