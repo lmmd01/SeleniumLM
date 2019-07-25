@@ -78,7 +78,7 @@ public class HomePage {
 	}
 
 	// Buscar Hotel
-	public String buscarHotel(String hotel, String in, String out, String numAdults, String numChild) {
+	public void buscarHotel(String hotel, String in, String out, String numAdults, String numChild) {
 		// Fill hotel name
 		this.setHotelName(hotel);
 		// Click 1st result
@@ -94,9 +94,8 @@ public class HomePage {
 		// Submmit button
 		util.clickElement(btnBuscar);
 
-		// return url
+		// ----- Escribir URL en excel 
 		System.out.println("La URL es: " + driver.getCurrentUrl());
-		return driver.getCurrentUrl();
 	}
 
 }
