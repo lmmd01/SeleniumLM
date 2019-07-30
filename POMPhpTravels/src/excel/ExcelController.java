@@ -1,4 +1,4 @@
-package pages;
+package excel;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +15,12 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.WebDriver;
 
+import pages.HomePage;
+import pages.Hotel;
+import pages.Login;
+import pdf.PdfCreation;
+
+
 public class ExcelController {
 
 
@@ -28,6 +34,7 @@ public class ExcelController {
 	HomePage home;
 	Hotel hotel;
 	Login login;
+	PdfCreation testPDF;
 
 	// Constructor
 	public ExcelController(WebDriver driver) {
@@ -35,6 +42,7 @@ public class ExcelController {
 		home = new HomePage(driver);
 		hotel = new Hotel(driver);
 		login = new Login(driver);
+		testPDF = new PdfCreation();
 	}
 
 	public ArrayList<String> getValues(int numberSheet) throws Exception {
@@ -92,6 +100,8 @@ public class ExcelController {
 		mainSheet = workbook.getSheetAt(0);
 		// Save the row number when it is found
 		int rowNumber = -1;
+		// Result fot the test
+		Boolean result = false;
 
 		for (Row row : mainSheet) {
 			for (Cell cell : row) {
@@ -105,28 +115,30 @@ public class ExcelController {
 			row = mainSheet.getRow(rowNumber);
 			ArrayList<String> values = null; 
 
-			// Login
+			// Login Column
 			if(row.getCell(4).getStringCellValue().trim().equals("YES")) {
 				//Load the hotel sheet values
 				values = getValues(1);
 			}
-			// Hotel
+			// Hotel Column
 			if(row.getCell(5).getStringCellValue().trim().equals("YES")) {
 				//Load the hotel sheet values
 				values = getValues(2);
 				// Call method 
-				home.buscarHotel(values.get(0),values.get(1),values.get(2),values.get(3),values.get(4));
+				result = home.buscarHotel(values.get(0),values.get(1),values.get(2),values.get(3),values.get(4));
 			}
-			// URL
+			// URL Column
 			if(row.getCell(6).getStringCellValue().trim().equals("YES")) {
 				//Load the hotel sheet values
 				values = getValues(3);
 			}
-			// Coupon
+			// Coupon Column
 			if(row.getCell(7).getStringCellValue().trim().equals("YES")) {
 				//Load the hotel sheet values
 				values = getValues(4);
 			}
 		}
+		
+		testPDF.createPDF(testID, result);
 	}
 }

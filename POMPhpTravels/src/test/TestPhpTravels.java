@@ -1,20 +1,15 @@
 package test;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import pages.ExcelController;
-
+import excel.ExcelController;
+import pdf.PdfCreation;
 
 public class TestPhpTravels {
-
-	// Logger
-	private final static Logger LOGGER = Logger.getLogger("TestPhpTravels");
 
 	WebDriver driver;
 	ExcelController excel;
@@ -31,7 +26,7 @@ public class TestPhpTravels {
 		driver.get("https://www.phptravels.net/");
 
 		// Maximize browser
-		driver.manage().window().maximize();
+		//driver.manage().window().maximize();
 
 	}
 
@@ -41,11 +36,13 @@ public class TestPhpTravels {
 		excel = new ExcelController(driver);
 
 		try {
-
-			LOGGER.log(Level.INFO,"Test logger");
+			
+			PdfCreation pdf = new PdfCreation();
+			
+			pdf.createPDF("Test 1", false);
 			
 			// Buscar hotel
-			excel.getDataTest("T2");
+			//excel.getDataTest("T2");
 
 			/*
 			// Ingresar
