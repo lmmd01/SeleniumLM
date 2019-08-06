@@ -6,11 +6,13 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import excel.Excel;
+import pages.HomePage;
 
 public class TestPom {
 
 	WebDriver driver;
 	Excel excel;
+	HomePage home;
 
 	@BeforeTest
 	public void setup() {
@@ -20,6 +22,7 @@ public class TestPom {
 
 		driver = new ChromeDriver();
 		excel = new Excel(driver);
+		home = new HomePage(driver);
 
 		// Open the webpage
 		driver.get("http://automationpractice.com");
@@ -35,7 +38,8 @@ public class TestPom {
 			excel.getDataTest("T2");
 			// Login into account
 			excel.getDataTest("T1");
-			// Comlete shoppig
+			// Comlete shopping
+			home.completeOrder();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}

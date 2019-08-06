@@ -86,7 +86,7 @@ public class HomePage {
 	}
 
 	// Method to login to account
-	public void completeData() {
+	public void completeOrder() {
 		weGoAddress = util.createWebElement(this.btnGoAddress);
 		weGoAddress.click();
 		weTerms = util.createWebElement(this.chkTerms);

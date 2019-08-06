@@ -17,6 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.WebDriver;
 
+import img.Screenshot;
 import pages.HomePage;
 import pages.LoginPage;
 import pdf.PdfCreation;
@@ -31,22 +32,25 @@ public class Excel {
 	XSSFRow row, mainRow;
 	String field;
 	int rowNumber;
-	ArrayList<String> fields = new ArrayList<String>(); 
+	ArrayList<String> fields;
 	WebDriver driver;
 	HomePage home;
 	LoginPage login;
-	PdfCreation testPDF;
+	PdfCreation pdf;
+	Screenshot img;
+	ArrayList<String> values;
 
 	// Constructor
 	public Excel(WebDriver driver) {
 		this.driver = driver;
 		home = new HomePage(driver);
 		login = new LoginPage(driver);
-		testPDF = new PdfCreation();
+		pdf = new PdfCreation();
+		img = new Screenshot(driver);
 	}
 
 	public void getDataTest(String testID) throws Exception {
-		
+		values = null; 
 		// Import excel sheet.
 		File src = new File("C:\\Users\\PCDUARTE01\\Desktop\\test.xlsx");
 		// Load the file.
@@ -68,15 +72,19 @@ public class Excel {
 		}
 		
 		if(rowNumber != -1) {
+			
+			values = null; 
 			// Load the found row
 			row = mainSheet.getRow(rowNumber);
-			ArrayList<String> values = null; 
 
 			// Login Column
 			if(row.getCell(4).getStringCellValue().trim().equals("YES")) {
 				//Load the login values
 				values = getValues(1);
 				login.ingresar(values.get(0), values.get(1));
+				//Call take screenshot function
+				img.takeSnapShot(testID); 
+				
 			}
 			// Item Column
 			if(row.getCell(5).getStringCellValue().trim().equals("YES")) {
@@ -84,7 +92,10 @@ public class Excel {
 				values = getValues(2);
 				// Call method 
 				home.agregarArticulo(values.get(1),values.get(2),values.get(3));
+				img.takeSnapShot(testID); 
 			}
+			
+			pdf.createPDF(testID, row.getCell(1).getStringCellValue(), row.getCell(2).getStringCellValue(), true);
 		}
 	}
 
@@ -101,14 +112,11 @@ public class Excel {
 		// Load the number of cells
 		int cellNumber =  sheet.getRow(0).getLastCellNum();
 		
-		LOGGER.log(Level.INFO, "El numero de cell: " + cellNumber);
+		fields = new ArrayList<String>(); 
 
 		for (int i = 0; i < cellNumber;  i++) {
 
 			cell = sheet.getRow(1).getCell(i);
-			
-			 LOGGER.log(Level.INFO, "La celda es: " + cell);
-			 LOGGER.log(Level.INFO, "El tipo de celda es: " + cell.getCellType());
 
 			// Get the value and format it 
 			switch (cell.getCellType()) {
