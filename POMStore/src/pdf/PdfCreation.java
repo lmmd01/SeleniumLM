@@ -34,6 +34,11 @@ public class PdfCreation {
 		doc.add(new Paragraph(text));
 	}
 
+	public void addImage(String name) throws Exception{
+		Image img = Image.getInstance("C:/Users/PCDUARTE01/Desktop/tests/" + name + ".png ");
+		img.scaleToFit(500, 500);
+		doc.add(img);
+	}
 	public void closePdf(){
 		doc.close();
 	}
@@ -45,10 +50,7 @@ public class PdfCreation {
 		addParagraph("TEST NAME : " + name);
 		addParagraph("TEST DESCRIPTION : " + description);
 		addParagraph("TEST RESULT : " + result);
-		
-		Image img = Image.getInstance("C:/Users/PCDUARTE01/Desktop/tests/" + tid + ".png ");
-		img.scaleToFit(500, 500);
-		doc.add(img);
+		addImage(tid);
 		closePdf();
 	}
 
