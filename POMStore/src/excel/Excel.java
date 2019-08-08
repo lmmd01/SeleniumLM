@@ -23,9 +23,9 @@ import pages.LoginPage;
 import pdf.PdfCreation;
 
 public class Excel {
-	
+
 	private final static Logger LOGGER = Logger.getLogger("excel.Excel");
-	
+
 	XSSFWorkbook workbook;
 	XSSFSheet sheet, mainSheet, loginSheet,itemSheet;
 	XSSFCell cell;
@@ -39,6 +39,15 @@ public class Excel {
 	PdfCreation pdf;
 	Screenshot img;
 	ArrayList<String> values;
+
+	String bussinessFlow;
+	String username;
+	String password;
+	String item;
+	String quantity;
+	String size;
+	String color;
+
 
 	// Constructor
 	public Excel(WebDriver driver) {
@@ -70,37 +79,59 @@ public class Excel {
 					rowNumber = cell.getRowIndex();
 			}
 		}
-		
+
 		if(rowNumber != -1) {
-			
+
 			values = null; 
 			// Load the found row
 			row = mainSheet.getRow(rowNumber);
 
+			// Business flow Column
+			bussinessFlow = row.getCell(3).getStringCellValue().trim();
+
 			// Login Column
-			if(row.getCell(4).getStringCellValue().trim().equals("YES")) {
+			if(row.getCell(4) != null && row.getCell(4).getStringCellValue().trim().equals("YES")) {
 				//Load the login values
 				values = getValues(1);
-				login.ingresar(values.get(0), values.get(1));
-				//Call take screenshot function
-				img.takeSnapShot(testID); 
-				
+				username = values.get(0);
+				password = values.get(1);
 			}
+
 			// Item Column
-			if(row.getCell(5).getStringCellValue().trim().equals("YES")) {
+			if(row.getCell(5) != null && row.getCell(5).getStringCellValue().trim().equals("YES")) {
 				//Load the item values
 				values = getValues(2);
-				// Call method 
-				home.agregarArticulo(values.get(1),values.get(2),values.get(3));
-				img.takeSnapShot(testID); 
+				item = values.get(0);
+				quantity = values.get(1);
+				size = values.get(2);
+				color = values.get(3);
 			}
-			
-			pdf.createPDF(testID, row.getCell(1).getStringCellValue(), row.getCell(2).getStringCellValue(), true);
+
+			callFlowMethod(bussinessFlow);
+
+			//pdf.createPDF(testID, row.getCell(1).getStringCellValue(), row.getCell(2).getStringCellValue(), true);
+		}
+	}
+
+
+	public void callFlowMethod(String flow) {
+		switch (flow) {
+		case "login":
+			login.ingresar(username, password);
+			break;
+		case "addItem":
+			home.agregarArticulo(item,quantity, size, color);
+			break;
+		case "completeOrder":
+			break;
+		default:
+			LOGGER.log(Level.INFO, "Comando no reconocido");
+			break;
 		}
 	}
 
 	public ArrayList<String> getValues(int numberSheet) throws Exception {
-		 LOGGER.log(Level.INFO, "Entra a getValues con # sheet: " + numberSheet);
+
 		// Import excel sheet.
 		File src = new File("C:\\Users\\PCDUARTE01\\Desktop\\test.xlsx");
 		// Load the file.
@@ -111,7 +142,7 @@ public class Excel {
 		sheet = workbook.getSheetAt(numberSheet);
 		// Load the number of cells
 		int cellNumber =  sheet.getRow(0).getLastCellNum();
-		
+
 		fields = new ArrayList<String>(); 
 
 		for (int i = 0; i < cellNumber;  i++) {
@@ -136,8 +167,8 @@ public class Excel {
 				field = cell.getStringCellValue();
 				fields.add(field);
 				break;
-				
-			 default:
+
+			default:
 				field = cell.getStringCellValue();
 				fields.add(field);
 				break;

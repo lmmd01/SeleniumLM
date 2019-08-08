@@ -22,7 +22,7 @@ public class HomePage {
 	// Locators
 	By txtSearchTop = By.id("search_query_top");
 	By lblPopularSection = By.xpath("//a[@class='homefeatured']");
-	By imgItemBlouse = By.xpath("//a[@class='product-name'][@title = 'Blouse']");
+	By imgItem;
 	By txtQuantity = By.id("quantity_wanted");
 	By sltSize = By.id("group_1");
 	By aColor;
@@ -40,7 +40,7 @@ public class HomePage {
 	// WebElements
 	WebElement weSearchTop;
 	WebElement wePopularSection;
-	WebElement weBlouse;
+	WebElement weItem;
 	WebElement weQuantity;
 	Select seSize;
 	WebElement weColor;
@@ -66,9 +66,11 @@ public class HomePage {
 
 
 	// Method to add an article to cart
-	public void agregarArticulo(String quantity,String size, String color) {
-		weBlouse = util.createWebElement(this.imgItemBlouse);
-		weBlouse.click();
+	public void agregarArticulo(String item, String quantity,String size, String color) {
+		String itemXString = "//a[@class='product-name'][contains(@title,'" + item + "')]";
+		imgItem = By.xpath(itemXString);
+		weItem = util.createWebElement(this.imgItem);
+		weItem.click();
 		weQuantity = util.createWebElement(this.txtQuantity);
 		weQuantity.clear();
 		weQuantity.sendKeys(quantity);

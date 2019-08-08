@@ -37,9 +37,9 @@ public class TestPom {
 			// Add item
 			excel.getDataTest("T2");
 			// Login into account
-			excel.getDataTest("T1");
+			//excel.getDataTest("T1");
 			// Comlete shopping
-			home.completeOrder();
+			//home.completeOrder();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}
